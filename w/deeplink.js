@@ -150,13 +150,9 @@
    * @public
    * @return {Boolean} true, if you're on a mobile device and the link was opened
    */
-  const open = function(uri) {
-    uri = uri || '';
-    if (URLSearchParams) {
-      uri = new URLSearchParams(window.location.search).get('deeplink');
-    }
+  const open = function (uri) {
     if (!uri || !uri.toLowerCase().startsWith('grab://open?')) {
-      uri = 'grab://open?screenType=SANDBOX';
+        uri = `grab://open?screenType=SANDBOX`
     }
 
     let timeout;
@@ -182,11 +178,6 @@
       uri += ';package=' + settings.android.appId;
       uri += ';S.browser_fallback_url=' + settings.fallbackWebUrl;
       uri += ';end';
-    }
-
-    if (isMobile()) {
-      clearTimeout(timeout);
-      document.getElementById('continue').href = uri;
     }
 
     const iframe = document.createElement('iframe');

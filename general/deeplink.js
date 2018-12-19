@@ -150,11 +150,20 @@
    * @public
    * @return {Boolean} true, if you're on a mobile device and the link was opened
    */
-  const open = function(uri) {
-    uri = uri || '';
+  const open = function() {
+    let uri = '';
     if (URLSearchParams) {
       uri = new URLSearchParams(window.location.search).get('deeplink');
     }
+
+    var url = new URL(window.location.href);
+    var sandboxLink = url.searchParams.get('link');
+    if (sandboxLink) {
+      uri = `grab://open?screenType=SANDBOX&sandboxDeepLinkUrl=${encodeURIComponent(
+        sandboxLink,
+      )}`;
+    }
+
     if (!uri || !uri.toLowerCase().startsWith('grab://open?')) {
       uri = 'grab://open?screenType=SANDBOX';
     }
