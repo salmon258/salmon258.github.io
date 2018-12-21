@@ -32,13 +32,13 @@
   let settings = {};
   const defaults = {
     android: {
-      appId: 'com.grabtaxi.passenger',
+      appId: 'com.grabtaxi.passenger'
     },
     androidDisabled: false,
     fallback: true,
     fallbackToWeb: true,
     fallbackWebUrl: 'https://www.grab.com', // Overwritten in HTML setup
-    delay: 2000,
+    delay: 2000
   };
 
   /**
@@ -150,9 +150,13 @@
    * @public
    * @return {Boolean} true, if you're on a mobile device and the link was opened
    */
-  const open = function (uri) {
+  const open = function(uri) {
+    uri = uri || '';
+    if (URLSearchParams) {
+      uri = new URLSearchParams(window.location.search).get('deeplink');
+    }
     if (!uri || !uri.toLowerCase().startsWith('grab://open?')) {
-        uri = `grab://open?screenType=SANDBOX`
+      uri = 'grab://open?screenType=SANDBOX&sandboxDeepLinkUrl=yir';
     }
 
     let timeout;
@@ -180,6 +184,11 @@
       uri += ';end';
     }
 
+    if (isMobile()) {
+      clearTimeout(timeout);
+      document.getElementById('continue').href = uri;
+    }
+
     const iframe = document.createElement('iframe');
     iframe.onload = function() {
       iframe.parentNode.removeChild(iframe);
@@ -196,6 +205,6 @@
   // Public API
   return {
     setup,
-    open,
+    open
   };
 });

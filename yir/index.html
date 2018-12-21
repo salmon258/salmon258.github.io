@@ -46,7 +46,7 @@
   <meta property="twitter:image:height" content="945" />
 
   <link rel="stylesheet" type="text/css" href="../style.css" />
-  <script src="../deeplink.js"></script>
+  <script src="./deeplink.js"></script>
 </html>
 <body>
   <a class="navbar-brand" href="https://www.grab.com">Grab</a>
@@ -63,7 +63,7 @@
     window.onload = function() {
       deeplink.setup({
         fallbackWebUrl:
-          'https://www.grab.com/sg/introducing-grab-daily-a-lifestyle-add-on-for-your-grab-app/',
+          'https://www.grab.com/sg/introducing-grab-daily-a-lifestyle-add-on-for-your-grab-app/'
       });
       deeplink.open('grab://open?screenType=SANDBOX&sandboxDeepLinkUrl=yir');
     };
